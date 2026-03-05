@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "animal_id": "1",
+    "title": "午后的慵懒时光",
+    "story": "小花在窗台上享受温暖的阳光，看起来睡得很香。",
+    "image_url": "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=A%20cat%20sleeping%20peacefully%20on%20a%20windowsill%20in%20afternoon%20sunlight%2C%20hand-drawn%20style&image_size=landscape_4_3",
+    "likes_count": 15,
+    "created_at": "2024-01-15"
+  },
+  {
+    "id": "2",
+    "animal_id": "2",
+    "title": "草地狂奔",
+    "story": "旺财第一次去公园的大草坪，开心得停不下来。",
+    "image_url": "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=A%20corgi%20running%20fast%20on%20green%20grass%2C%20ears%20flapping%2C%20hand-drawn%20style&image_size=landscape_4_3",
+    "likes_count": 28,
+    "created_at": "2024-01-18"
+  },
+  {
+    "id": "3",
+    "animal_id": "3",
+    "title": "好吃的胡萝卜",
+    "story": "蹦蹦终于肯吃我喂的胡萝卜了，太感动了！",
+    "image_url": "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=A%20cute%20rabbit%20eating%20a%20carrot%20from%20a%20hand%2C%20close%20up%2C%20hand-drawn%20style&image_size=landscape_4_3",
+    "likes_count": 12,
+    "created_at": "2024-01-22"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "animal_id": "1",
+    "title": "小花的日常冒险",
+    "content": "今天小花又发现了新的玩耍地点——衣柜顶端！不知道它是怎么爬上去的，我在下面叫了半天它都不理我，只是懒洋洋地甩着尾巴。最后还是用罐头的声音把它骗下来的。真是个调皮的小家伙！",
+    "cover_image": "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=A%20cat%20sitting%20high%20up%20on%20top%20of%20a%20wardrobe%20looking%20down%2C%20hand-drawn%20style&image_size=landscape_16_9",
+    "views_count": 32,
+    "created_at": "2024-01-20"
+  },
+  {
+    "id": "2",
+    "animal_id": "2",
+    "title": "旺财的新朋友",
+    "content": "带旺财去散步的时候，遇到了一只金毛大哥哥。旺财一开始有点害怕，躲在我身后。但是金毛非常温柔，慢慢地靠近闻了闻它。不一会儿，它们就玩在一起了，追逐打闹，好不快乐！",
+    "cover_image": "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=A%20corgi%20and%20a%20golden%20retriever%20playing%20together%20in%20a%20park%2C%20hand-drawn%20style&image_size=landscape_16_9",
+    "views_count": 45,
+    "created_at": "2024-01-25"
+  }
+]
