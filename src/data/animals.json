@@ -1,11 +1,11 @@
 [
   {
     "id": "1",
-    "name": "小花",
-    "species": "猫咪",
-    "personality": "温顺可爱",
-    "description": "一只橘白相间的田园猫，喜欢在阳光下打盹。它是这里最早的住客，也是大家的知心姐姐。",
-    "avatar_url": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=400",
+    "name": "初一",
+    "species": "英国短毛猫",
+    "personality": "呆萌粘人",
+    "description": "一只圆滚滚的银色虎斑猫，有着无辜的大眼睛。最喜欢钻进各种奇怪的地方发呆，或者在地图地毯上躺平思考喵生。",
+    "avatar_url": "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=A%20cute%20gray%20british%20shorthair%20cat%20face%20close%20up%20hand-drawn%20style&image_size=square",
     "created_at": "2024-01-01"
   },
   {

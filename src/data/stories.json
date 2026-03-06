@@ -2,9 +2,9 @@
   {
     "id": "1",
     "animal_id": "1",
-    "title": "小花的日常冒险",
-    "content": "今天小花又发现了新的玩耍地点——洗衣篮！它在里面躲了一下午，直到我们拿出它最爱的零食才肯出来。这已经是这周第三次了，看来我们需要给它准备个更隐蔽的藏身处了。",
-    "cover_image": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=800",
+    "title": "初一的探险日记",
+    "content": "今天初一又发现了新的玩耍地点——洗衣篮！它在里面躲了一下午，直到我们拿出它最爱的零食才肯出来。这已经是这周第三次了，看来我们需要给它准备个更隐蔽的藏身处了。",
+    "cover_image": "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=A%20cute%20gray%20british%20shorthair%20cat%20hiding%20in%20a%20laundry%20basket%20hand-drawn%20style&image_size=landscape_4_3",
     "views_count": 32,
     "created_at": "2024-01-20"
   },
