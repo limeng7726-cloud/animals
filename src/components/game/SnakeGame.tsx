@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Play, RotateCcw, Trophy } from 'lucide-react';
+import { Play, RotateCcw, Trophy, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from 'lucide-react';
 import clsx from 'clsx';
 
 // 游戏配置
@@ -24,6 +24,7 @@ const SnakeGame: React.FC = () => {
   // 引用以避免闭包陷阱
   const directionRef = useRef(direction);
   const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
   // 更新方向引用
   useEffect(() => {
@@ -54,19 +55,19 @@ const SnakeGame: React.FC = () => {
 
       switch (e.key) {
         case 'ArrowUp':
-          if (directionRef.current !== 'DOWN') setDirection('UP');
+          handleMove('UP');
           e.preventDefault();
           break;
         case 'ArrowDown':
-          if (directionRef.current !== 'UP') setDirection('DOWN');
+          handleMove('DOWN');
           e.preventDefault();
           break;
         case 'ArrowLeft':
-          if (directionRef.current !== 'RIGHT') setDirection('LEFT');
+          handleMove('LEFT');
           e.preventDefault();
           break;
         case 'ArrowRight':
-          if (directionRef.current !== 'LEFT') setDirection('RIGHT');
+          handleMove('RIGHT');
           e.preventDefault();
           break;
       }
@@ -75,6 +76,24 @@ const SnakeGame: React.FC = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isPlaying]);
+
+  // 移动逻辑封装
+  const handleMove = useCallback((newDirection: Direction) => {
+    switch (newDirection) {
+      case 'UP':
+        if (directionRef.current !== 'DOWN') setDirection('UP');
+        break;
+      case 'DOWN':
+        if (directionRef.current !== 'UP') setDirection('DOWN');
+        break;
+      case 'LEFT':
+        if (directionRef.current !== 'RIGHT') setDirection('LEFT');
+        break;
+      case 'RIGHT':
+        if (directionRef.current !== 'LEFT') setDirection('RIGHT');
+        break;
+    }
+  }, []);
 
   // 游戏循环
   const moveSnake = useCallback(() => {
@@ -149,13 +168,49 @@ const SnakeGame: React.FC = () => {
     setIsPlaying(true);
   };
 
+  // 触摸开始
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY
+    };
+  };
+
+  // 触摸结束
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+
+    const touchEnd = {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY
+    };
+
+    const deltaX = touchEnd.x - touchStartRef.current.x;
+    const deltaY = touchEnd.y - touchStartRef.current.y;
+    const absDeltaX = Math.abs(deltaX);
+    const absDeltaY = Math.abs(deltaY);
+
+    // 最小滑动距离，防止误触
+    if (Math.max(absDeltaX, absDeltaY) > 30) {
+      if (absDeltaX > absDeltaY) {
+        // 水平滑动
+        handleMove(deltaX > 0 ? 'RIGHT' : 'LEFT');
+      } else {
+        // 垂直滑动
+        handleMove(deltaY > 0 ? 'DOWN' : 'UP');
+      }
+    }
+
+    touchStartRef.current = null;
+  };
+
   return (
     <div className="flex flex-col items-center p-8 bg-orange-50 rounded-3xl border border-orange-100 shadow-sm max-w-2xl mx-auto my-12">
       <h2 className="text-2xl font-bold text-stone-800 mb-4 flex items-center">
         🐍 贪吃蛇小游戏
       </h2>
       <p className="text-stone-500 mb-6 text-center">
-        在这放松一下吧！用键盘方向键控制移动。
+        在这放松一下吧！用键盘方向键或在屏幕上滑动控制移动。
       </p>
 
       <div className="flex justify-between w-full max-w-md mb-4 px-4">
@@ -170,11 +225,13 @@ const SnakeGame: React.FC = () => {
       </div>
 
       <div
-        className="relative bg-stone-800 rounded-lg shadow-inner overflow-hidden border-4 border-stone-300"
+        className="relative bg-stone-800 rounded-lg shadow-inner overflow-hidden border-4 border-stone-300 touch-none"
         style={{
           width: GRID_SIZE * CELL_SIZE,
           height: GRID_SIZE * CELL_SIZE,
         }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {/* 食物 */}
         <motion.div
@@ -233,8 +290,45 @@ const SnakeGame: React.FC = () => {
         )}
       </div>
 
-      <div className="mt-6 text-sm text-stone-400">
-        提示: 按下方向键即可控制方向
+      <div className="mt-6 flex flex-col items-center gap-2">
+        <div className="text-sm text-stone-400 mb-2">
+          提示: 按下方向键、在屏幕上滑动或使用下方按钮控制
+        </div>
+        
+        {/* 虚拟方向键 - 移动端友好 */}
+        <div className="grid grid-cols-3 gap-2">
+          <div />
+          <button
+            className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 hover:bg-orange-200 active:bg-orange-300 transition-colors"
+            onClick={() => handleMove('UP')}
+            aria-label="Up"
+          >
+            <ArrowUp size={24} />
+          </button>
+          <div />
+          
+          <button
+            className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 hover:bg-orange-200 active:bg-orange-300 transition-colors"
+            onClick={() => handleMove('LEFT')}
+            aria-label="Left"
+          >
+            <ArrowLeft size={24} />
+          </button>
+          <button
+            className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 hover:bg-orange-200 active:bg-orange-300 transition-colors"
+            onClick={() => handleMove('DOWN')}
+            aria-label="Down"
+          >
+            <ArrowDown size={24} />
+          </button>
+          <button
+            className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 hover:bg-orange-200 active:bg-orange-300 transition-colors"
+            onClick={() => handleMove('RIGHT')}
+            aria-label="Right"
+          >
+            <ArrowRight size={24} />
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -78,21 +78,45 @@ const Home: React.FC = () => {
       </section>
 
       {/* Latest Updates Teaser */}
-      <section className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-orange-100 relative overflow-hidden">
-        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-orange-100 rounded-full opacity-50"></div>
-        <div className="absolute bottom-0 left-0 -mb-8 -ml-8 w-24 h-24 bg-green-100 rounded-full opacity-50"></div>
+      <section className="max-w-4xl mx-auto mb-16">
+        <h2 className="text-3xl font-bold text-stone-800 mb-8 text-center">最新故事</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {useData().stories.slice(0, 2).map((story) => (
+            <Link key={story.id} to={`/stories/${story.id}`} className="group">
+              <div className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all border border-stone-100 h-full flex flex-col">
+                <div className="h-48 overflow-hidden relative">
+                  <img 
+                    src={story.cover_image} 
+                    alt={story.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-orange-600 shadow-sm">
+                    阅读更多
+                  </div>
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <div className="text-stone-400 text-sm mb-2">{story.created_at}</div>
+                  <h3 className="text-xl font-bold text-stone-800 mb-3 group-hover:text-orange-500 transition-colors">
+                    {story.title}
+                  </h3>
+                  <p className="text-stone-600 text-sm line-clamp-2 mb-4 flex-grow">
+                    {story.content}
+                  </p>
+                  <div className="flex items-center text-orange-500 font-bold text-sm">
+                    查看详情 <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
         
-        <div className="relative z-10 text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold text-stone-800 mb-4">想要了解更多趣事？</h2>
-          <p className="text-stone-600 mb-8">
-            我们的生活中充满了欢笑和惊喜，每一天都有新的故事发生。
-            快来阅读我们的最新日记，或者在留言板分享你的想法吧！
-          </p>
+        <div className="text-center mt-10">
           <Link
             to="/stories"
             className="inline-flex items-center px-6 py-3 bg-stone-800 text-white rounded-full font-bold hover:bg-stone-900 transition-colors"
           >
-            阅读故事
+            阅读更多故事
           </Link>
         </div>
       </section>
