@@ -4,7 +4,7 @@
     "animal_id": "1",
     "title": "谁的鞋子？",
     "story": "初一把爪子伸进了这只黄色的洞洞鞋里，一脸无辜地看着我，好像在说：这本来就是我的手套嘛！",
-    "image_url": "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=A%20cute%20gray%20tabby%20british%20shorthair%20cat%20lying%20on%20floor%20with%20a%20yellow%20shoe%20on%20its%20paw%20looking%20innocent%20hand-drawn%20style&image_size=landscape_4_3",
+    "image_url": "/images/chuyi/2.jpg",
     "likes_count": 128,
     "created_at": "2024-03-01"
   },
@@ -13,7 +13,7 @@
     "animal_id": "1",
     "title": "地图探险家",
     "story": "初一躺在世界地图地毯上，眼神迷离。也许它正在梦里环游世界，从非洲大草原一直跑到印度洋。",
-    "image_url": "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=A%20chubby%20gray%20tabby%20cat%20lying%20on%20its%20back%20on%20a%20world%20map%20rug%20looking%20at%20camera%20cute%20hand-drawn%20style&image_size=landscape_4_3",
+    "image_url": "/images/chuyi/3.jpg",
     "likes_count": 96,
     "created_at": "2024-03-02"
   },
@@ -22,7 +22,7 @@
     "animal_id": "1",
     "title": "思考喵生",
     "story": "有时候它就这样呆呆地看着你，不知道小脑袋里在想些什么，可能是晚饭吃什么吧。",
-    "image_url": "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=A%20gray%20british%20shorthair%20cat%20sitting%20and%20looking%20curious%20with%20big%20eyes%20hand-drawn%20style&image_size=landscape_4_3",
+    "image_url": "/images/chuyi/4.jpg",
     "likes_count": 88,
     "created_at": "2024-03-05"
   },
