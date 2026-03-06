@@ -4,15 +4,32 @@ import { Heart, X } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import useData from '../hooks/useData';
 import { Photo } from '../types';
+import { useSound } from '../hooks/useSound';
 
 const Gallery: React.FC = () => {
   const { photos, animals, loading } = useData();
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [filter, setFilter] = useState<string>('all');
+  const playSound = useSound();
 
   const filteredPhotos = filter === 'all' 
     ? photos 
     : photos.filter(p => p.animal_id === filter);
+
+  const handlePhotoClick = (photo: Photo) => {
+    playSound('click');
+    setSelectedPhoto(photo);
+  };
+
+  const handleClose = () => {
+    playSound('click');
+    setSelectedPhoto(null);
+  };
+
+  const handleFilterChange = (newFilter: string) => {
+    playSound('click');
+    setFilter(newFilter);
+  };
 
   return (
     <Layout>
@@ -24,7 +41,7 @@ const Gallery: React.FC = () => {
       {/* Filter Tabs */}
       <div className="flex flex-wrap justify-center gap-4 mb-12">
         <button
-          onClick={() => setFilter('all')}
+          onClick={() => handleFilterChange('all')}
           className={`px-6 py-2 rounded-full font-medium transition-all ${
             filter === 'all' 
               ? 'bg-orange-500 text-white shadow-md' 
@@ -36,7 +53,7 @@ const Gallery: React.FC = () => {
         {animals.map(animal => (
           <button
             key={animal.id}
-            onClick={() => setFilter(animal.id)}
+            onClick={() => handleFilterChange(animal.id)}
             className={`px-6 py-2 rounded-full font-medium transition-all ${
               filter === animal.id 
                 ? 'bg-orange-500 text-white shadow-md' 
@@ -67,7 +84,7 @@ const Gallery: React.FC = () => {
                 exit={{ opacity: 0, scale: 0.9 }}
                 key={photo.id}
                 className="group relative cursor-pointer break-inside-avoid"
-                onClick={() => setSelectedPhoto(photo)}
+                onClick={() => handlePhotoClick(photo)}
               >
                 <div className="bg-white p-3 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                   <div className="aspect-[4/3] overflow-hidden rounded-lg mb-3">
@@ -100,7 +117,7 @@ const Gallery: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
-            onClick={() => setSelectedPhoto(null)}
+            onClick={handleClose}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -123,7 +140,7 @@ const Gallery: React.FC = () => {
                     <span className="text-sm text-stone-500">{selectedPhoto.created_at}</span>
                   </div>
                   <button 
-                    onClick={() => setSelectedPhoto(null)}
+                    onClick={handleClose}
                     className="p-2 hover:bg-stone-100 rounded-full transition-colors"
                   >
                     <X size={24} className="text-stone-500" />

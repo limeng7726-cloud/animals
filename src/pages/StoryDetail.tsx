@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, User, MessageCircle, Share2, Heart } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import useData from '../hooks/useData';
+import { useSound } from '../hooks/useSound';
 
 const StoryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,6 +14,7 @@ const StoryDetail: React.FC = () => {
   const [commentContent, setCommentContent] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [liked, setLiked] = useState(false);
+  const playSound = useSound();
 
   // 查找当前故事
   const story = stories.find(s => s.id === id);
@@ -60,11 +62,23 @@ const StoryDetail: React.FC = () => {
       });
       setCommentContent('');
       setCommentName('');
+      playSound('success');
     } catch (error) {
       console.error('Failed to add comment:', error);
+      playSound('crash');
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleLike = () => {
+      const newLiked = !liked;
+      setLiked(newLiked);
+      if (newLiked) {
+          playSound('success');
+      } else {
+          playSound('click');
+      }
   };
 
   return (
@@ -123,7 +137,7 @@ const StoryDetail: React.FC = () => {
             <div className="flex justify-between items-center py-6 border-t border-stone-100">
               <div className="flex space-x-4">
                 <button
-                  onClick={() => setLiked(!liked)}
+                  onClick={handleLike}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-colors ${
                     liked ? 'bg-red-50 text-red-500' : 'bg-stone-50 text-stone-600 hover:bg-stone-100'
                   }`}

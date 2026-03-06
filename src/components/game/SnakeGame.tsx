@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Play, RotateCcw, Trophy, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Play, RotateCcw, Trophy, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Volume2, VolumeX } from 'lucide-react';
 import clsx from 'clsx';
+import confetti from 'canvas-confetti';
+import { useSound } from '../../hooks/useSound';
 
 // 游戏配置
 const GRID_SIZE = 20;
@@ -20,6 +22,10 @@ const SnakeGame: React.FC = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [isSoundEnabled, setIsSoundEnabled] = useState(true);
+
+  // 音效钩子
+  const playSound = useSound(isSoundEnabled);
 
   // 引用以避免闭包陷阱
   const directionRef = useRef(direction);
@@ -79,21 +85,38 @@ const SnakeGame: React.FC = () => {
 
   // 移动逻辑封装
   const handleMove = useCallback((newDirection: Direction) => {
+    // 只有在方向改变时才播放移动音效，且避免过于频繁
+    let changed = false;
     switch (newDirection) {
       case 'UP':
-        if (directionRef.current !== 'DOWN') setDirection('UP');
+        if (directionRef.current !== 'DOWN' && directionRef.current !== 'UP') {
+            setDirection('UP');
+            changed = true;
+        }
         break;
       case 'DOWN':
-        if (directionRef.current !== 'UP') setDirection('DOWN');
+        if (directionRef.current !== 'UP' && directionRef.current !== 'DOWN') {
+            setDirection('DOWN');
+            changed = true;
+        }
         break;
       case 'LEFT':
-        if (directionRef.current !== 'RIGHT') setDirection('LEFT');
+        if (directionRef.current !== 'RIGHT' && directionRef.current !== 'LEFT') {
+            setDirection('LEFT');
+            changed = true;
+        }
         break;
       case 'RIGHT':
-        if (directionRef.current !== 'LEFT') setDirection('RIGHT');
+        if (directionRef.current !== 'LEFT' && directionRef.current !== 'RIGHT') {
+            setDirection('RIGHT');
+            changed = true;
+        }
         break;
     }
-  }, []);
+    if (changed) {
+        playSound('move');
+    }
+  }, [playSound]);
 
   // 游戏循环
   const moveSnake = useCallback(() => {
@@ -128,7 +151,17 @@ const SnakeGame: React.FC = () => {
       ) {
         setIsGameOver(true);
         setIsPlaying(false);
-        if (score > highScore) setHighScore(score);
+        playSound('crash');
+        if (score > highScore) {
+            setHighScore(score);
+            playSound('success');
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#f97316', '#fbbf24', '#a8a29e', '#ffffff'] // Orange, Yellow, Stone, White
+            });
+        }
         return prevSnake;
       }
 
@@ -138,13 +171,14 @@ const SnakeGame: React.FC = () => {
       if (newHead.x === food.x && newHead.y === food.y) {
         setScore((prev) => prev + 1);
         setFood(generateFood(newSnake));
+        playSound('eat');
       } else {
         newSnake.pop();
       }
 
       return newSnake;
     });
-  }, [food, generateFood, isGameOver, score, highScore]);
+  }, [food, generateFood, isGameOver, score, highScore, playSound]);
 
   useEffect(() => {
     if (isPlaying && !isGameOver) {
@@ -166,6 +200,7 @@ const SnakeGame: React.FC = () => {
     setScore(0);
     setIsGameOver(false);
     setIsPlaying(true);
+    playSound('click');
   };
 
   // 触摸开始
@@ -204,8 +239,22 @@ const SnakeGame: React.FC = () => {
     touchStartRef.current = null;
   };
 
+  const toggleSound = () => {
+      setIsSoundEnabled(!isSoundEnabled);
+  };
+
   return (
-    <div className="flex flex-col items-center p-8 bg-orange-50 rounded-3xl border border-orange-100 shadow-sm max-w-2xl mx-auto my-12">
+    <div className="flex flex-col items-center p-8 bg-orange-50 rounded-3xl border border-orange-100 shadow-sm max-w-2xl mx-auto my-12 relative">
+      <div className="absolute top-8 right-8">
+        <button
+            onClick={toggleSound}
+            className="p-2 rounded-full hover:bg-orange-100 text-orange-600 transition-colors"
+            title={isSoundEnabled ? "关闭音效" : "开启音效"}
+        >
+            {isSoundEnabled ? <Volume2 size={24} /> : <VolumeX size={24} />}
+        </button>
+      </div>
+
       <h2 className="text-2xl font-bold text-stone-800 mb-4 flex items-center">
         🐍 贪吃蛇小游戏
       </h2>
@@ -243,6 +292,7 @@ const SnakeGame: React.FC = () => {
             top: food.y * CELL_SIZE + 2,
           }}
           layoutId="food"
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
         />
 
         {/* 蛇 */}
