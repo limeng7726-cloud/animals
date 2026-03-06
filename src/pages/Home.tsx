@@ -1,16 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import AnimalCard from '../components/common/AnimalCard';
 import useData from '../hooks/useData';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import SnakeGame from '../components/game/SnakeGame';
+import { useSound } from '../hooks/useSound';
 
 const Home: React.FC = () => {
   const { animals, loading } = useData();
+  const navigate = useNavigate();
+  const playSound = useSound();
 
   const featuredAnimals = animals.slice(0, 3);
+
+  const handleAnimalClick = (id: string) => {
+    playSound('click');
+    navigate(`/animals/${id}`);
+  };
 
   return (
     <Layout>
@@ -39,12 +47,14 @@ const Home: React.FC = () => {
             <Link
               to="/gallery"
               className="px-8 py-3 bg-orange-500 text-white rounded-full font-bold shadow-lg hover:bg-orange-600 hover:shadow-xl transition-all flex items-center"
+              onClick={() => playSound('click')}
             >
               浏览相册 <ArrowRight size={20} className="ml-2" />
             </Link>
             <Link
               to="/about"
               className="px-8 py-3 bg-white text-stone-700 border border-stone-200 rounded-full font-bold shadow-sm hover:bg-stone-50 transition-all"
+              onClick={() => playSound('click')}
             >
               了解更多
             </Link>
@@ -59,7 +69,11 @@ const Home: React.FC = () => {
             <h2 className="text-3xl font-bold text-stone-800 mb-2">认识我们的朋友</h2>
             <p className="text-stone-500">每一位都是独一无二的家庭成员</p>
           </div>
-          <Link to="/gallery" className="text-orange-500 hover:text-orange-600 font-medium flex items-center">
+          <Link 
+            to="/gallery" 
+            className="text-orange-500 hover:text-orange-600 font-medium flex items-center"
+            onClick={() => playSound('click')}
+          >
             查看全部 <ArrowRight size={16} className="ml-1" />
           </Link>
         </div>
@@ -71,7 +85,11 @@ const Home: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredAnimals.map((animal) => (
-              <AnimalCard key={animal.id} animal={animal} />
+              <AnimalCard 
+                key={animal.id} 
+                animal={animal} 
+                onClick={() => handleAnimalClick(animal.id)}
+              />
             ))}
           </div>
         )}
@@ -82,7 +100,12 @@ const Home: React.FC = () => {
         <h2 className="text-3xl font-bold text-stone-800 mb-8 text-center">最新故事</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {useData().stories.slice(0, 2).map((story) => (
-            <Link key={story.id} to={`/stories/${story.id}`} className="group">
+            <Link 
+                key={story.id} 
+                to={`/stories/${story.id}`} 
+                className="group"
+                onClick={() => playSound('click')}
+            >
               <div className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all border border-stone-100 h-full flex flex-col">
                 <div className="h-48 overflow-hidden relative">
                   <img 
@@ -115,6 +138,7 @@ const Home: React.FC = () => {
           <Link
             to="/stories"
             className="inline-flex items-center px-6 py-3 bg-stone-800 text-white rounded-full font-bold hover:bg-stone-900 transition-colors"
+            onClick={() => playSound('click')}
           >
             阅读更多故事
           </Link>

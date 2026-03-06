@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Gallery from './pages/Gallery';
 import Stories from './pages/Stories';
 import StoryDetail from './pages/StoryDetail';
+import AnimalDetail from './pages/AnimalDetail';
 import About from './pages/About';
 import Admin from './pages/Admin';
 
@@ -14,6 +15,7 @@ function App() {
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/stories" element={<Stories />} />
       <Route path="/stories/:id" element={<StoryDetail />} />
+      <Route path="/animals/:id" element={<AnimalDetail />} />
       <Route path="/about" element={<About />} />
       <Route path="/admin" element={<Admin />} />
     </Routes>
