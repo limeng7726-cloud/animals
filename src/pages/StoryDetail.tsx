@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, User, MessageCircle, Share2, Heart } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import useData from '../hooks/useData';
-import { format } from 'date-fns';
 
 const StoryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
