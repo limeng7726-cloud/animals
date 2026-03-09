@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Heart, Camera, BookOpen } from 'lucide-react';
+import { ArrowLeft, Heart, Camera, BookOpen, Cake, Fish, Star, Activity } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import useData from '../hooks/useData';
 import { useSound } from '../hooks/useSound';
@@ -79,21 +79,68 @@ const AnimalDetail: React.FC = () => {
                 alt={animal.name}
                 className="w-full h-full object-cover"
               />
+              {/* Status Badge */}
+              {animal.status && (
+                <div className="absolute top-4 left-4">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-white/90 backdrop-blur-sm text-stone-700 shadow-sm">
+                    <Activity size={14} className="mr-1 text-green-500" />
+                    {animal.status === 'sleeping' && '正在睡觉 💤'}
+                    {animal.status === 'playing' && '玩耍中 🎾'}
+                    {animal.status === 'eating' && '干饭时刻 🍖'}
+                    {animal.status === 'curious' && '好奇观察 👀'}
+                    {animal.status === 'happy' && '心情超好 ✨'}
+                  </span>
+                </div>
+              )}
             </div>
             
             {/* Info */}
             <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
               <div className="mb-6">
-                <span className="inline-block px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-sm font-bold mb-3">
-                  {animal.species}
-                </span>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <span className="inline-block px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-sm font-bold">
+                    {animal.species}
+                  </span>
+                  {animal.birthday && (
+                    <span className="inline-flex items-center px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-bold">
+                      <Cake size={14} className="mr-1" />
+                      生日: {animal.birthday}
+                    </span>
+                  )}
+                </div>
                 <h1 className="text-4xl md:text-5xl font-bold text-stone-800 font-handwriting mb-2">
                   {animal.name}
                 </h1>
-                <p className="text-stone-500 italic flex items-center">
+                <p className="text-stone-500 italic flex items-center mb-4">
                   <Heart size={16} className="mr-2 text-rose-500 fill-current" />
                   性格: {animal.personality}
                 </p>
+
+                {/* Fun Facts */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                  {animal.favorite_food && (
+                    <div className="bg-stone-50 p-3 rounded-xl flex items-start">
+                      <div className="bg-white p-2 rounded-lg mr-3 shadow-sm text-orange-500">
+                        <Fish size={18} />
+                      </div>
+                      <div>
+                        <div className="text-xs text-stone-400 font-bold uppercase">最爱食物</div>
+                        <div className="text-stone-700 font-medium">{animal.favorite_food}</div>
+                      </div>
+                    </div>
+                  )}
+                  {animal.hobbies && (
+                    <div className="bg-stone-50 p-3 rounded-xl flex items-start">
+                      <div className="bg-white p-2 rounded-lg mr-3 shadow-sm text-yellow-500">
+                        <Star size={18} />
+                      </div>
+                      <div>
+                        <div className="text-xs text-stone-400 font-bold uppercase">爱好</div>
+                        <div className="text-stone-700 font-medium">{animal.hobbies.join('、')}</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
               
               <div className="prose prose-stone text-stone-600 leading-relaxed mb-8">
@@ -126,18 +173,22 @@ const AnimalDetail: React.FC = () => {
                 <motion.div
                   key={photo.id}
                   whileHover={{ scale: 1.05 }}
-                  className="aspect-square rounded-xl overflow-hidden shadow-sm cursor-pointer"
+                  className="aspect-square rounded-xl overflow-hidden shadow-sm cursor-pointer relative group"
                   onClick={() => {
                       playSound('click');
-                      // TODO: Could open lightbox here, but for now just link to gallery
                       navigate(`/gallery?filter=${animal.id}`);
                   }}
                 >
                   <img
                     src={photo.image_url}
                     alt={photo.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-end p-4">
+                    <p className="text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity text-sm truncate w-full">
+                      {photo.title}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -177,7 +228,14 @@ const AnimalDetail: React.FC = () => {
                       />
                     </div>
                     <div className="w-2/3 p-4 flex flex-col justify-center">
-                      <h3 className="text-lg font-bold text-stone-800 mb-2 group-hover:text-orange-500 transition-colors line-clamp-1">
+                      <div className="flex gap-2 mb-2">
+                        {story.tags?.slice(0, 2).map(tag => (
+                          <span key={tag} className="text-[10px] px-2 py-0.5 bg-stone-100 text-stone-500 rounded-full font-bold">
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                      <h3 className="text-lg font-bold text-stone-800 mb-1 group-hover:text-orange-500 transition-colors line-clamp-1">
                         {story.title}
                       </h3>
                       <p className="text-stone-500 text-sm line-clamp-2 mb-2">

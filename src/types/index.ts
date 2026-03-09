@@ -6,6 +6,11 @@ export interface Animal {
   description: string;
   avatar_url: string;
   created_at: string;
+  // New fields
+  birthday?: string;
+  favorite_food?: string;
+  hobbies?: string[];
+  status?: 'sleeping' | 'playing' | 'eating' | 'curious' | 'happy';
 }
 
 export interface Photo {
@@ -16,6 +21,7 @@ export interface Photo {
   image_url: string;
   likes_count: number;
   created_at: string;
+  tags?: string[];
 }
 
 export interface Story {
@@ -26,6 +32,7 @@ export interface Story {
   cover_image: string;
   views_count: number;
   created_at: string;
+  tags?: string[];
 }
 
 export interface Comment {

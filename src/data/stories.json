@@ -5,8 +5,9 @@
     "title": "初一的探险日记",
     "content": "今天初一又发现了新的玩耍地点——洗衣篮！它在里面躲了一下午，直到我们拿出它最爱的零食才肯出来。这已经是这周第三次了，看来我们需要给它准备个更隐蔽的藏身处了。",
     "cover_image": "/images/chuyi/1.jpg",
-    "views_count": 32,
-    "created_at": "2024-01-20"
+    "views_count": 128,
+    "created_at": "2024-01-20",
+    "tags": ["搞笑", "躲猫猫", "日常"]
   },
   {
     "id": "2",
@@ -14,7 +15,38 @@
     "title": "大黄的新朋友",
     "content": "在公园散步时，大黄遇到了一只叫小白的萨摩耶。它们一见如故，玩得不亦乐乎。看着它们互相追逐的样子，感觉整个世界都充满了快乐。",
     "cover_image": "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=800",
-    "views_count": 45,
-    "created_at": "2024-01-22"
+    "views_count": 89,
+    "created_at": "2024-01-22",
+    "tags": ["友情", "公园", "治愈"]
+  },
+  {
+    "id": "3",
+    "animal_id": "1",
+    "title": "第一次见到雪",
+    "content": "今天外面下起了大雪，初一趴在窗户上看了整整一个小时。它的小爪子按在玻璃上，似乎想抓住那些飞舞的白色精灵。当我打开窗户让它闻闻雪的味道时，它却被冷空气吓得缩回了被窝。",
+    "cover_image": "https://images.unsplash.com/photo-1516139008210-96e45dccd83b?auto=format&fit=crop&q=80&w=800",
+    "views_count": 256,
+    "created_at": "2024-02-05",
+    "tags": ["冬天", "第一次", "好奇"]
+  },
+  {
+    "id": "4",
+    "animal_id": "3",
+    "title": "越狱计划",
+    "content": "吱吱昨晚实施了一次精密的越狱计划。它先是把食盆推倒制造噪音，然后趁我不注意试图咬开笼子的锁扣。虽然计划失败了，但我不得不佩服它的毅力！",
+    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c65?auto=format&fit=crop&q=80&w=800",
+    "views_count": 67,
+    "created_at": "2024-02-18",
+    "tags": ["冒险", "捣乱", "聪明"]
+  },
+  {
+    "id": "5",
+    "animal_id": "1",
+    "title": "生日快乐，初一！",
+    "content": "今天是初一的三岁生日！我们给它准备了一个特制的金枪鱼蛋糕。它吃得满脸都是，连胡须上都沾满了奶油。看着它满足的样子，觉得所有的付出都值得了。",
+    "cover_image": "/images/chuyi/4.jpg",
+    "views_count": 342,
+    "created_at": "2024-06-23",
+    "tags": ["生日", "庆祝", "美食"]
   }
 ]

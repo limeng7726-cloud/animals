@@ -6,7 +6,11 @@
     "personality": "呆萌粘人",
     "description": "一只圆滚滚的银色虎斑猫，有着无辜的大眼睛。最喜欢钻进各种奇怪的地方发呆，或者在地图地毯上躺平思考喵生。",
     "avatar_url": "/images/chuyi/1.jpg",
-    "created_at": "2024-01-01"
+    "created_at": "2024-01-01",
+    "birthday": "2021-06-23",
+    "favorite_food": "三文鱼罐头",
+    "hobbies": ["钻箱子", "追光点", "在键盘上睡觉"],
+    "status": "sleeping"
   },
   {
     "id": "2",
@@ -15,7 +19,11 @@
     "personality": "活泼好动",
     "description": "金毛巡回犬，永远充满活力，最喜欢接飞盘游戏。它的笑容能治愈一切烦恼。",
     "avatar_url": "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=400",
-    "created_at": "2024-01-02"
+    "created_at": "2024-01-02",
+    "birthday": "2022-08-15",
+    "favorite_food": "大骨头",
+    "hobbies": ["接飞盘", "游泳", "拆家"],
+    "status": "playing"
   },
   {
     "id": "3",
@@ -24,6 +32,10 @@
     "personality": "机灵鬼",
     "description": "虽然个头小，但是跑轮可是它的强项！晚上经常能听到它锻炼的声音。",
     "avatar_url": "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?auto=format&fit=crop&q=80&w=400",
-    "created_at": "2024-01-03"
+    "created_at": "2024-01-03",
+    "birthday": "2023-11-11",
+    "favorite_food": "瓜子",
+    "hobbies": ["跑轮", "藏食物", "发呆"],
+    "status": "eating"
   }
 ]
