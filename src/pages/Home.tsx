@@ -7,6 +7,7 @@ import useData from '../hooks/useData';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import SnakeGame from '../components/game/SnakeGame';
 import { useSound } from '../hooks/useSound';
+import BirthdayReminder from '../components/common/BirthdayReminder';
 
 const Home: React.FC = () => {
   const { animals, loading } = useData();
@@ -14,6 +15,7 @@ const Home: React.FC = () => {
   const playSound = useSound();
 
   const featuredAnimals = animals.slice(0, 3);
+  const chuyi = animals.find(a => a.name === '初一');
 
   const handleAnimalClick = (id: string) => {
     playSound('click');
@@ -22,6 +24,9 @@ const Home: React.FC = () => {
 
   return (
     <Layout>
+      {/* Birthday Reminder for Chuyi */}
+      {chuyi && <BirthdayReminder animal={chuyi} />}
+
       {/* Hero Section */}
       <section className="mb-16 text-center">
         <motion.div
